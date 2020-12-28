@@ -14,5 +14,5 @@ def get_db_stat(path):
                            "size": (os.path.getsize(f"{path}/{entry.name}"))/1024**2,
                            "monitor_time": datetime.now(timezone.utc)}
                 db_list.append((db_stat["id"], db_stat["name"], db_stat["size"], db_stat["monitor_time"]))
-    print(db_list)
+    print(db_stat)
     return db_list
