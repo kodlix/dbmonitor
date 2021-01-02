@@ -50,7 +50,7 @@ def get_all_records(con: Connection):
     try:
         cursorObj = con.cursor()
         cursorObj.execute(
-            'SELECT id, db_name, size, monitor_time FROM tb_monitor ORDER BY monitor_time DESC')
+            'SELECT id, db_name, size, monitor_time FROM tb_monitor GROUP BY db_name ORDER BY monitor_time DESC')
         rows = cursorObj.fetchall()
         rowarray_list = []
         for row in rows:
