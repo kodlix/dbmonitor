@@ -23,7 +23,7 @@ def create_table(con: Connection) -> Connection:
     sql_script = """ CREATE TABLE IF NOT EXISTS tb_monitor
         (id text PRIMARY KEY,
          db_name text,
-         size float, 
+         size real, 
          monitor_time  date)"""
     db_cursor.execute(sql_script)
     con.commit()
