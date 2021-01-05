@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Error, Connection
-
+from openpyxl import Workbook, load_workbook, styles
+from os import path
 
 def get_sqlconnection():
     """
@@ -83,3 +84,36 @@ def close_connection(con: Connection):
     Close connection
     """
     con.close()
+
+
+def add_record_to_excel(data):
+    """
+    Create a new record to excel file or add to existing file
+    """ 
+    EXCEL_FILE= "dbmonitor.xlsx"
+ 
+    file_exists = path.exists(EXCEL_FILE)
+    if file_exists:
+        book = load_workbook(EXCEL_FILE)
+        ws = book.active
+
+        for item in data:
+            ws.append(list(item.values()))
+
+        
+    else:
+        print("new file")
+        book = Workbook()
+        ws = book.active
+
+        dbs = []
+        header = list(data[0].keys()) # get the  headers from the keys
+        ws.append(header)
+
+        row = ws.row_dimensions[1]
+        row.font = styles.Font(bold=True, size=13)
+
+        for item in data:
+            ws.append(list(item.values()))    
+
+    book.save("dbmonitor.xlsx")
